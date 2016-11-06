@@ -20,20 +20,25 @@ public:
 
 };
 
-class NumericVar : public Var, Parser
+class NumericVar : public Var
 {
 private:
     int value;
     void initialize(std::stringstream & ss)
     {
         std::string str="";
+        std::string::size_type sz;
+
         getline(ss,str,'\n');
 
-        if (std::all_of (str.begin(), str.end(), [](unsigned char c) {
-                return std::isdigit(c); }))
-        { value = std::stoi(str); }
+        try{
+            value = stoi(str,&sz);
+        } catch(std::invalid_argument&) {
+            throw InvalidVariable(ss.str());
+        }
 
-        else throw InvalidNumeric(ss.str());
+        if ( sz != str.length() )
+            throw InvalidVariable(ss.str());
     }
 
 public:
@@ -44,8 +49,8 @@ public:
         NumericVar * numeric_var = new NumericVar();
         try{
             numeric_var->initialize(ss);
-        } catch (InvalidNumeric in) {
-            in.printException();
+        } catch (InvalidVariable iv) {
+            iv.printException();
             delete(numeric_var);
             return nullptr;
         }
@@ -58,27 +63,25 @@ public:
 
 };
 
-class RealVar : public Var, Parser
+class RealVar : public Var
 {
 private:
     float value;
-    void initialize(std::stringstream & ss) 
-    { 
+    void initialize(std::stringstream & ss)
+    {
         std::string str="";
+        std::string::size_type sz;
+
         getline(ss,str,'\n');
 
-        bool contains_commas; 
-        bool is_alpha;
-        contains_commas = std::any_of (str.begin(), str.end(), [] (unsigned char c) {
-                    return c == ',';
-                    });
-        is_alpha = std::any_of (str.begin(), str.end(), [] (unsigned char c) {
-                    return std::isalpha(c);
-                    });
+        try{
+            value = stof(str,&sz);
+        } catch(std::invalid_argument&) {
+            throw InvalidVariable(ss.str());
+        }
 
-        if ( !contains_commas && !is_alpha )
-        { value = stof(str); }
-        else throw InvalidReal(ss.str());
+        if ( sz != str.length() )
+            throw InvalidVariable(ss.str());
     }
 
 public:
@@ -89,8 +92,8 @@ public:
         RealVar * real_var = new RealVar();
         try {
             real_var->initialize(ss);
-        } catch (InvalidReal ir) {
-            ir.printException();
+        } catch (InvalidVariable iv) {
+            iv.printException();
             delete(real_var);
             return nullptr;
         }
@@ -103,7 +106,7 @@ public:
 
 };
 
-class CharVar : public Var, Parser
+class CharVar : public Var
 {
 private:
     char value;
@@ -129,7 +132,7 @@ public:
 
 };
 
-class StringVar : public Var, Parser
+class StringVar : public Var
 {
 private:
     std::string value;

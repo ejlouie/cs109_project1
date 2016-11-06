@@ -24,24 +24,13 @@ public:
     }
 };
 
-class InvalidNumeric : public ParseException
+class InvalidVariable : public ParseException
 {
 public:
-    InvalidNumeric(const std::string & p_line)
+    InvalidVariable(const std::string & p_line)
         : ParseException(p_line)
     {
         exception_str = "Numeric value is invalid.";
-    }
-};
-
-
-class InvalidReal : public ParseException
-{
-public:
-    InvalidReal(const std::string & p_line)
-        : ParseException(p_line)
-    {
-        exception_str = "Real value is invalid.";
     }
 };
 

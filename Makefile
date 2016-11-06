@@ -3,9 +3,9 @@
 GCC= g++
 OBJ = o
 
-all: Prob1 clean
+all: MIS clean
 
-Prob1: main.$(OBJ) ParseException.$(OBJ)
+MIS: main.$(OBJ) ParseException.$(OBJ)
 	$(GCC) $^ -o $@
 
 clean:

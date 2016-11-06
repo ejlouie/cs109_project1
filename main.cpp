@@ -35,7 +35,7 @@ int main(){
                 new_var = new_var->clone(iss);
 
                 if ( new_var != NULL ){
-                    cout << "Variable Discovered!" << endl;
+                    cout << "Variable Discovered: " << itemType << endl;
                     new_var->dump();
                     delete(new_var);
                 }

@@ -14,6 +14,7 @@ protected:
 public:
     Parser(){}
     ~Parser(){}
+
     void Parse(std::stringstream & ss)
     {
         std::string str = "";
@@ -24,8 +25,12 @@ public:
         std::getline(ss,str,'\n');
         args.push_back(str);
 
-        for( auto x = args.begin(); x != args.end(); x++ )
-            std::cout << x[0] << std::endl;
+    }
+
+    void dump() const
+    {
+        for( auto x = args.begin(); x != args.end(); x++)
+            std::cout << x[0];
     }
 };
 
