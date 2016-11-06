@@ -27,14 +27,12 @@ private:
         Parse(ss);
         std::string::size_type sz;
 
-        try {
-            value = std::stoi(args[3],&sz);
-        } catch(std::invalid_argument&){
-            throw VariableValueException(ss.str(),args[3]);
-        }
+        try { value = std::stoi(args[2],&sz); } 
+        catch(std::invalid_argument&)
+        { throw VariableValueException(ss.str(),args[2]); }
 
-        if ( sz != args[3].length() )
-            throw VariableValueException(ss.str(),args[3]);
+        if ( sz != args[2].length() )
+            throw VariableValueException(ss.str(),args[2]);
     }
 
 public:
@@ -44,12 +42,10 @@ public:
     {
         NumericVar * numeric_var = new NumericVar();
 
-        try{
-            numeric_var->initialize(ss);
-        } catch (VariableException pe) {
+        try { numeric_var->initialize(ss); } 
+        catch (VariableException pe) {
             pe.printException();
-            delete(numeric_var);
-            return nullptr;
+            delete(numeric_var); return nullptr;
         }
 
         return numeric_var;
@@ -63,20 +59,18 @@ public:
 class RealVar : public Var, Parser
 {
 private:
-    float value;
+    double value;
     void initialize(std::stringstream & ss)
     {
         Parse(ss);
         std::string::size_type sz;
 
-        try {
-            value = std::stof(args[3],&sz);
-        } catch (std::invalid_argument&) {
-            throw VariableValueException(ss.str(),args[3]);
-        }
+        try { value = std::stod(args[2],&sz); } 
+        catch (std::invalid_argument&) 
+        { throw VariableValueException(ss.str(),args[2]); }
 
-        if ( sz != args[3].length() )
-            throw VariableValueException(ss.str(),args[3]);
+        if ( sz != args[2].length() )
+            throw VariableValueException(ss.str(),args[2]);
     }
 
 public:
@@ -85,12 +79,11 @@ public:
     virtual Var * clone(std::stringstream & ss)
     {
         RealVar * real_var = new RealVar();
-        try {
-            real_var->initialize(ss);
-        } catch (VariableException iv) {
+
+        try { real_var->initialize(ss); } 
+        catch (VariableException iv) {
             iv.printException();
-            delete(real_var);
-            return nullptr;
+            delete(real_var); return nullptr;
         }
 
         return real_var;
@@ -108,11 +101,10 @@ private:
     void initialize(std::stringstream & ss) 
     { 
         Parse(ss);
+        value = args[2][1];
 
-        value = args[3][1];
-
-        if ( args[3].length() != 3 || !isalpha(value) )
-            throw VariableValueException(ss.str(),args[3]);
+        if ( args[2].length() != 3 || !isalpha(value) )
+            throw VariableValueException(ss.str(),args[2]);
     }
 
 public:
@@ -121,12 +113,11 @@ public:
     virtual Var * clone(std::stringstream & ss)
     {
         CharVar * char_var = new CharVar();
-        try{
-            char_var->initialize(ss);
-        } catch (VariableException iv) {
+
+        try{ char_var->initialize(ss); } 
+        catch (VariableException iv) {
             iv.printException();
-            delete(char_var);
-            return nullptr;
+            delete(char_var); return nullptr;
         }
 
         return char_var;
@@ -145,19 +136,19 @@ private:
     void initialize(std::stringstream & ss) 
     {
         Parse(ss);
-        if ( args.size() == 4 ){
-            value = args[3];
+        if ( args.size() == 3 ){
+            value = args[2];
             m_size = 256;
-        } else if ( args.size() == 5 ){
-            value = args[4];
+        } else if ( args.size() == 4 ){
+            value = args[3];
             std::string::size_type sz;
-            try { 
-                m_size = std::stoi(args[3],&sz);
-            } catch (std::invalid_argument&){
-                throw VariableValueException(ss.str(),args[3]);
-            }
-            if ( sz != args[3].length() )
-                throw VariableValueException(ss.str(),args[3]);
+
+            try { m_size = std::stoi(args[2],&sz); } 
+            catch (std::invalid_argument&)
+            { throw VariableValueException(ss.str(),args[2]); }
+
+            if ( sz != args[2].length() )
+                throw VariableValueException(ss.str(),args[2]);
 
         } else throw VariableException(ss.str());
     }
@@ -168,12 +159,11 @@ public:
     virtual Var * clone(std::stringstream & ss)
     {
         StringVar * string_var = new StringVar();
-        try {
-            string_var->initialize(ss);
-        } catch (VariableException ve) {
+
+        try { string_var->initialize(ss); } 
+        catch (VariableException ve) {
             ve.printException();
-            delete(string_var);
-            return nullptr;
+            delete(string_var); return nullptr;
         }
 
         return string_var;

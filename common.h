@@ -5,3 +5,4 @@
 #include <sstream>
 #include <map>
 #include <algorithm>
+#include <functional>

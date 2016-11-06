@@ -6,7 +6,7 @@
 int main(){
 
     std::map <std::string,Var *> var_factory;
-    Parser * parser = new Parser(20);
+    std::map<std::string,Var*> vars;
 
     var_factory["NUMERIC"] = new NumericVar();
     var_factory["REAL"] = new RealVar();
@@ -58,7 +58,6 @@ int main(){
     delete(var_factory["REAL"]);
     delete(var_factory["CHAR"]);
     delete(var_factory["STRING"]);
-    delete(parser);
 
     return 0;
 }
