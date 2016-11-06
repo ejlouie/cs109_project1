@@ -1,3 +1,4 @@
-VAR $cat,NUMERIC,41
+VAR $cat  ,  NUMERIC,  d41 4 
 VAR $dog,REAL,1e9
-VAR $mychar,CHAR,'ef'
+VAR $mychar,CHAR,'df'
+VAR $mystring,STRING,4d2,'4sadf'

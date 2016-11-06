@@ -5,7 +5,7 @@ OBJ = o
 
 all: MIS clean
 
-MIS: main.$(OBJ) ParseException.$(OBJ)
+MIS: main.$(OBJ)
 	$(GCC) $^ -o $@
 
 clean:

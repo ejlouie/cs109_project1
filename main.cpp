@@ -3,45 +3,48 @@
 #include "Parser.h"
 #include "Var.h"
 
-using namespace std;
-
 int main(){
 
-    map <string,Var *> var_factory;
+    std::map <std::string,Var *> var_factory;
+    Parser * parser = new Parser(20);
 
     var_factory["NUMERIC"] = new NumericVar();
     var_factory["REAL"] = new RealVar();
     var_factory["CHAR"] = new CharVar();
     var_factory["STRING"] = new StringVar();
 
-    string line="";
-    ifstream readFile("hello.txt");
-    string command = "";
+    std::string line="";
+    std::ifstream readFile("hello.txt");
 
     while( getline(readFile,line))
     {
-        stringstream iss(line);
-        getline(iss,command,' '); 
+        std::string command ="";
+        std::stringstream sline(line);
+        getline(sline,command,' ');
+
         if( command == "VAR" )
         {
-            string name = "";
-            getline(iss,name,',');
-            string itemType = "";
-            getline(iss,itemType,',');
+            std::string name = "";
+            getline(sline,name,',');
+            name.erase( std::remove( name.begin(), name.end(),' '), name.end());
+            std::string itemType ="";
+            getline(sline,itemType,',');
+            itemType.erase( std::remove( itemType.begin(), itemType.end(),' '), itemType.end());
 
             Var * new_var = var_factory[itemType];
 
             if ( new_var != NULL ){
-                new_var = new_var->clone(iss);
+                new_var = new_var->clone(sline);
 
                 if ( new_var != NULL ){
-                    cout << "Variable Discovered: " << itemType << endl;
+                    std::cout << "Variable Discovered: " << itemType << std::endl;
                     new_var->dump();
                     delete(new_var);
                 }
-                else cout << "Undefined Variable." << endl;
+            } else {
+                VariableTypeException iv(sline.str(),itemType);
+                iv.printException();
             }
-            else cout << "Undefined Variable." << endl;
         }
         else
         { 
@@ -55,6 +58,7 @@ int main(){
     delete(var_factory["REAL"]);
     delete(var_factory["CHAR"]);
     delete(var_factory["STRING"]);
+    delete(parser);
 
     return 0;
 }

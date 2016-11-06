@@ -9,29 +9,18 @@ protected:
     std::string exception_str;
     std::string line;
 public:
-    ParseException(const std::string & p_line);
-    virtual void printException() final;
-    virtual ~ParseException();
-};
-
-class InvalidLineException : public ParseException
-{
-public:
-    InvalidLineException(const std::string & p_line)
-        : ParseException(p_line)
+    ParseException(const std::string & p_line)
     {
-        exception_str = "Invalid Line";
+        exception_str = "General Line Parsing Exception";
+        line = p_line;
     }
-};
-
-class InvalidVariable : public ParseException
-{
-public:
-    InvalidVariable(const std::string & p_line)
-        : ParseException(p_line)
+    virtual void printException() final
     {
-        exception_str = "Variable value is invalid.";
+        std::cout << "\n>>>>Parsing Exception:" << std::endl;
+        std::cout << "Problem parsing line:\n" << line << std::endl;
+        std::cout << exception_str << std::endl << std::endl;
     }
+    virtual ~ParseException(){}
 };
 
 #endif
