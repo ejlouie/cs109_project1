@@ -64,7 +64,19 @@ private:
     float value;
     void initialize(std::stringstream & ss) 
     { 
-        ss >> value; 
+        std::string str="";
+        getline(ss,str,'\n');
+        bool contains_commas; 
+        bool is_alpha;
+        contain_commas = std::any_of (str.begin(), str.end(), [] (unsigned char c) {
+                    return c == ',';
+                    });
+        is_alpha = std::any_of (str.begin(), str.end(), [] (unsigned char c) {
+                    return std::isalpha(c);
+                    });
+        if ( !contain_commas && !is_alpha )
+        { value = stof(str); }
+        else throw InvalidReal(ss.str());
     }
 
 public:
