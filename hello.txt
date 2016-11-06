@@ -1,3 +1,0 @@
-VAR $cat,402,1040,24,asdf,24
-MUL $yourmum,414,224
-CAR $daybowbow,411
