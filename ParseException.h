@@ -34,4 +34,15 @@ public:
     }
 };
 
+
+class InvalidReal : public ParseException
+{
+public:
+    InvalidReal(const std::string & p_line)
+        : ParseException(p_line)
+    {
+        exception_str = "Real value is invalid.";
+    }
+};
+
 #endif

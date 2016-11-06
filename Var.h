@@ -63,7 +63,9 @@ class RealVar : public Var, Parser
 private:
     float value;
     void initialize(std::stringstream & ss) 
-    { ss >> value; }
+    { 
+        ss >> value; 
+    }
 
 public:
     RealVar(){}
@@ -71,7 +73,13 @@ public:
     virtual Var * clone(std::stringstream & ss)
     {
         RealVar * real_var = new RealVar();
-        real_var->initialize(ss);
+        try {
+            real_var->initialize(ss);
+        } catch (InvalidReal ir) {
+            ir.printException();
+            delete(real_var);
+            return nullptr;
+        }
 
         return real_var;
     }
