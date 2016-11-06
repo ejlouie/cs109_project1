@@ -50,9 +50,11 @@ int main(){
     }
 
     readFile.close();
+
     delete(var_factory["NUMERIC"]);
     delete(var_factory["REAL"]);
     delete(var_factory["CHAR"]);
     delete(var_factory["STRING"]);
+
     return 0;
 }
