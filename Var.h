@@ -29,13 +29,9 @@ private:
         std::string str="";
         std::string::size_type sz;
 
-        getline(ss,str,'\n');
+        std::getline(ss,str,'\n');
 
-        try{
-            value = stoi(str,&sz);
-        } catch(std::invalid_argument&) {
-            throw InvalidVariable(ss.str());
-        }
+        value = std::stoi(str,&sz);
 
         if ( sz != str.length() )
             throw InvalidVariable(ss.str());
@@ -47,8 +43,14 @@ public:
     virtual Var * clone(std::stringstream & ss)
     {
         NumericVar * numeric_var = new NumericVar();
+
         try{
             numeric_var->initialize(ss);
+        } catch (std::invalid_argument&) {
+            InvalidVariable iv(ss.str());
+            iv.printException();
+            delete(numeric_var);
+            return nullptr;
         } catch (InvalidVariable iv) {
             iv.printException();
             delete(numeric_var);
@@ -72,13 +74,9 @@ private:
         std::string str="";
         std::string::size_type sz;
 
-        getline(ss,str,'\n');
+        std::getline(ss,str,'\n');
 
-        try{
-            value = stof(str,&sz);
-        } catch(std::invalid_argument&) {
-            throw InvalidVariable(ss.str());
-        }
+        value = std::stof(str,&sz);
 
         if ( sz != str.length() )
             throw InvalidVariable(ss.str());
@@ -93,6 +91,11 @@ public:
         try {
             real_var->initialize(ss);
         } catch (InvalidVariable iv) {
+            iv.printException();
+            delete(real_var);
+            return nullptr;
+        } catch (std::invalid_argument&) {
+            InvalidVariable iv(ss.str());
             iv.printException();
             delete(real_var);
             return nullptr;
@@ -113,7 +116,11 @@ private:
     void initialize(std::stringstream & ss) 
     { 
         std::string str="";
-        getline(ss,str,'\n');
+
+        std::getline(ss,str);
+        value = str[1];
+        if ( str.length() != 3 || !std::isalpha(value) )
+            throw InvalidVariable(ss.str());
     }
 
 public:
@@ -122,7 +129,18 @@ public:
     virtual Var * clone(std::stringstream & ss)
     {
         CharVar * char_var = new CharVar();
-        char_var->initialize(ss);
+        try{
+            char_var->initialize(ss);
+        } catch (InvalidVariable iv) {
+            iv.printException();
+            delete(char_var);
+            return nullptr;
+        } catch (std::invalid_argument&) {
+            InvalidVariable iv(ss.str());
+            iv.printException();
+            delete(char_var);
+            return nullptr;
+        }
 
         return char_var;
     }

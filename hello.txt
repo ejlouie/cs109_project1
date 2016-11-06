@@ -1,2 +1,3 @@
-VAR $cat,NUMERIC,4424
-VAR $dog,REAL,42.456
+VAR $cat,NUMERIC,41
+VAR $dog,REAL,1e9
+VAR $mychar,CHAR,'ef'

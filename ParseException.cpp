@@ -8,7 +8,7 @@ ParseException::ParseException(const std::string & p_line )
 
 void ParseException::printException()
 {
-    std::cout << "Parsing Excepion:" << std::endl;
+    std::cout << "\n>>>>Parsing Excepion:" << std::endl;
     std::cout << "Problem parsing line: " << line << std::endl;
     std::cout << exception_str << std::endl;
 }

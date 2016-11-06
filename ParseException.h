@@ -30,7 +30,7 @@ public:
     InvalidVariable(const std::string & p_line)
         : ParseException(p_line)
     {
-        exception_str = "Numeric value is invalid.";
+        exception_str = "Variable value is invalid.";
     }
 };
 
