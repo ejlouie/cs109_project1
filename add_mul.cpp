@@ -7,6 +7,8 @@
 
 add_mul::add_mul(int specifier) {
   this->specifier = specifier;
+  this->isjmp = false;
+  this->islab = false;
 }
 
 void add_mul::execute(map<string, Var*>*) {

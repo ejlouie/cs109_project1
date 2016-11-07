@@ -1,18 +1,17 @@
-#ifndef OUT_H
-#define OUT_H
+#ifndef LABEL_H
+#define LABEL_H
 
-#include "Instructions.h"
 #include "common.h"
+#include "Instructions.h"
 #include "Insns_Parser.h"
 
-class out: public Instructions, public Insns_Parser {
- protected:
+class Label: public Instructions, public Insns_Parser {
  public:
-  out();
+  Label();
   void execute(map<string, Var*>*);
   void paramatize(stringstream & ss);
   Instructions * clone(stringstream & ss);
-  ~out();
+  ~Label();
 };
 
 #endif

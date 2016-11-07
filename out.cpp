@@ -1,6 +1,9 @@
 #include "out.h"
 
-//out::out() {}
+out::out() {
+  this->isjmp = false;
+  this->islab = false;
+}
 
 void out::execute(map<string, Var*>*) {
   int size = vec.size();
@@ -24,4 +27,4 @@ Instructions * out::clone(stringstream & ss) {
   return j; 
 }
 
-///out::~out() {}
+out::~out() {}

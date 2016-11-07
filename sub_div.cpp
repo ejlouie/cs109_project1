@@ -8,6 +8,8 @@
 
 sub_div::sub_div (int specifier) {
   this->specifier = specifier;
+  this->isjmp = false;
+  this->islab = false;
 }
 
 
@@ -19,20 +21,20 @@ void sub_div::execute(map<string, Var*>* vars) {
     cout << "Error: invalid parameters.\n" << endl;
     return;
   }
-  /*Var* s = vars->operator[](vec[0]);
+  Var* s = vars->operator[](vec[0]);
   if (s != NULL) {
-    num1 = s->getValue(); 
+    //num1 = s->getValue(); 
   }else {
     stringstream convert1(vec[0]);
     convert1>>num1;
   }
   Var* b = vars->operator[](vec[1]);
   if (b != NULL) {
-    num2 = s->getValue();
+    //num2 = s->getValue();
   }else {
     stringstream convert2(vec[1]);
     convert2>>num2;
-    }*/
+    }
   double solution;
   if (specifier == 0) {
     solution = num1 - num2;

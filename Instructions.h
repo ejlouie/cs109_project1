@@ -9,6 +9,10 @@ protected:
   //int linenr;
 public:
   int linenr;
+  string label;
+  bool isjmp;
+  bool islab;
+  bool can_jmp;
   //Instructions(); 
   virtual void execute(map<string, Var*>*) = 0;
   virtual void paramatize (stringstream & ss) = 0;

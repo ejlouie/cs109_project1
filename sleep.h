@@ -1,18 +1,18 @@
-#ifndef OUT_H
-#define OUT_H
+#ifndef SLEEP_H
+#define SLEEP_H
 
-#include "Instructions.h"
 #include "common.h"
+#include "Instructions.h"
 #include "Insns_Parser.h"
 
-class out: public Instructions, public Insns_Parser {
- protected:
+class sleep: public Instructions, public Insns_Parser {
  public:
-  out();
+  sleep();
   void execute(map<string, Var*>*);
   void paramatize(stringstream & ss);
   Instructions * clone(stringstream & ss);
-  ~out();
+  ~sleep();
 };
 
 #endif
+

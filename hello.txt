@@ -1,5 +1,15 @@
-VAR $myint, REAL, 10
-VAR $hello, STRING, 10, "hello"
-ADD, 10, 10
-SUB, 10, 10
-MUL, 10, 10
+VAR $d, REAL, 3
+VAR $m, STRING, 10, "hello"
+SLEEP, 1
+ADD, 4, 4, 4
+SLEEP, 1
+JMPLTE, LAB1, 2, 2
+SLEEP, 1
+MUL, 3, 4
+SLEEP, 1
+DIV, 34, 4
+SLEEP, 1
+SUB, 20, 4
+SLEEP, 1
+ADD, 100, 100
+LABEL, LAB1
