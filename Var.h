@@ -18,7 +18,7 @@ public:
 
 };
 
-class NumericVar : public Var, Parser
+class NumericVar : public Var, VarParser
 {
 private:
     int value;
@@ -26,9 +26,8 @@ private:
     {
         Parse(ss);
         std::string::size_type sz;
-
-        try { value = std::stoi(args[2],&sz); } 
-        catch(std::invalid_argument&)
+        try{ value = std::stoi(args[2],&sz); }
+        catch (std::invalid_argument&)
         { throw VariableValueException(ss.str(),args[2]); }
 
         if ( sz != args[2].length() )
@@ -36,7 +35,7 @@ private:
     }
 
 public:
-    NumericVar() : Parser(4) {}
+    NumericVar(){}
     virtual ~NumericVar(){}
     virtual Var * clone(std::stringstream & ss)
     {
@@ -56,7 +55,7 @@ public:
 
 };
 
-class RealVar : public Var, Parser
+class RealVar : public Var, VarParser
 {
 private:
     double value;
@@ -74,7 +73,7 @@ private:
     }
 
 public:
-    RealVar() : Parser(4) {}
+    RealVar() {}
     virtual ~RealVar(){}
     virtual Var * clone(std::stringstream & ss)
     {
@@ -94,7 +93,7 @@ public:
 
 };
 
-class CharVar : public Var, Parser
+class CharVar : public Var, VarParser
 {
 private:
     char value;
@@ -108,7 +107,7 @@ private:
     }
 
 public:
-    CharVar() : Parser(4) {}
+    CharVar() {}
     virtual ~CharVar(){}
     virtual Var * clone(std::stringstream & ss)
     {
@@ -128,7 +127,7 @@ public:
 
 };
 
-class StringVar : public Var, Parser
+class StringVar : public Var, VarParser
 {
 private:
     std::string value;
@@ -154,7 +153,7 @@ private:
     }
 
 public:
-    StringVar() : Parser(5){}
+    StringVar(){}
     virtual ~StringVar(){}
     virtual Var * clone(std::stringstream & ss)
     {

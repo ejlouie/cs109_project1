@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "ParseException.h"
+#include "VariableException.h"
 
 class Parser
 {
@@ -11,11 +12,10 @@ private:
     { str.erase( std::remove( str.begin(), str.end(),' '), str.end()); }
 
 protected:
-    int m_max_size;
     std::vector<std::string> args;
 
 public:
-    Parser(const int & max_size) : m_max_size(max_size) {}
+    Parser(){}
     ~Parser(){}
 
     void Parse(std::stringstream & ss)
@@ -26,12 +26,27 @@ public:
         getline(ss,str,' ');
 
         while( getline(ss,str,',') ){
-            remove_whitespace(str);
+            if(str[0] != '"' && str[str.length() - 1] != '"') 
+                remove_whitespace(str);
             args.push_back(str);
         }
 
-        if (args.size() > m_max_size)
-            throw ParseException(ss.str());
+    }
+};
+
+class VarParser : public Parser
+{
+public:
+    VarParser(){}
+    ~VarParser(){}
+    void Parse(std::stringstream & ss)
+    {
+        Parser::Parse(ss);
+
+        if ( args[0][0] != '$' )
+            throw VariableNameException(ss.str(), args[0]);
+        if ( args.size() > 4 )
+            throw VariableException(ss.str());
     }
 };
 

@@ -1,5 +1,5 @@
 #ifndef __VARIABLE_EXCEPTION_H
-#define __VARIABLEPARSE_EXCEPTION_H
+#define __VARIABLE_EXCEPTION_H
 
 #include "common.h"
 
