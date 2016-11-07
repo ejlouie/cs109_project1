@@ -1,4 +1,5 @@
-VAR $cat,NUMERIC,41d4 
-VAR $dog,REAL,1e9
-VAR $mychar,CHAR,'f'
-VAR $mystring,STRING,42,"as fd"
+VAR $myint, REAL, 10
+VAR $hello, STRING, 10, "hello"
+ADD, 10, 10
+SUB, 10, 10
+MUL, 10, 10
