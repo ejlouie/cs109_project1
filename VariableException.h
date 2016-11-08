@@ -8,6 +8,7 @@ class VariableException
 protected:
     std::string exception_str;
     std::string line;
+
 public:
     VariableException(const std::string & p_line)
     {
@@ -21,6 +22,16 @@ public:
         std::cout << exception_str << std::endl << std::endl;
     }
     virtual ~VariableException(){}
+};
+
+class VariableCountException : public VariableException
+{
+public:
+    VariableCountException(const std::string & p_line)
+        : VariableException(p_line)
+    {
+        exception_str = "Too many arguments";
+    }
 };
 
 class VariableValueException : public VariableException

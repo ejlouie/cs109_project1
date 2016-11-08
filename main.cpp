@@ -1,17 +1,25 @@
 #include "common.h"
 
-#include "Parser.h"
 #include "Var.h"
+#include "Instructions.h"
+#include "Math.h"
 
 int main(){
 
     std::map <std::string,Var *> var_factory;
     std::map<std::string,Var*> vars;
+    std::map <std::string, Instructions *> insn;
+    int count = 0;
 
     var_factory["NUMERIC"] = new NumericVar();
     var_factory["REAL"] = new RealVar();
     var_factory["CHAR"] = new CharVar();
     var_factory["STRING"] = new StringVar();
+
+    insn["ADD"] = new Add();
+    insn["SUB"] = new Subtract();
+    //insn["DIV"] = new SubDiv(1);
+    insn["OUT"] = new Out();
 
     std::string line="";
     std::ifstream readFile("hello.txt");
@@ -37,22 +45,32 @@ int main(){
                 new_var = new_var->clone(sline);
 
                 if ( new_var != NULL ){
-                    std::cout << "Variable Discovered: " << itemType << std::endl;
-                    new_var->dump();
-                    delete(new_var);
+                    vars[name] = new_var;
                 }
             } else {
                 VariableTypeException iv(sline.str(),itemType);
                 iv.printException();
             }
         }
-        else
-        { 
-            // Instructions
+        else { 
+            Instructions * obj = insn[command]; //Fetch the corresponding object from map
+
+            if ( obj != NULL ) { // If can find an object with name inde  
+                obj = obj->clone(sline); // Clone an object of the same type  
+                if ( obj != NULL) {
+                    obj->linenr = count++;
+                    obj->execute(&vars); 
+                    delete(obj);
+                } else break;
+            }
         }
     }
 
     readFile.close();
+
+    for_each (vars.begin(), vars.end(),[](auto item) -> void {
+        delete(item.second);
+    });
 
     delete(var_factory["NUMERIC"]);
     delete(var_factory["REAL"]);

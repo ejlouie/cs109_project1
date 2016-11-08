@@ -1,4 +1,8 @@
-VAR $cat,NUMERIC,41d4 
-VAR $dog,REAL,1e9
-VAR $mychar,CHAR,'f'
-VAR $mystring,STRING,42,"as fd"
+VAR $cata,NUMERIC,7
+VAR $catb,NUMERIC,4
+VAR $dog,REAL,4e9
+VAR $mychar,CHAR,'d'
+VAR $mystring,STRING,41,"hey bud"
+ADD $cata,$cata,$catb,42,5
+SUB $cata,52,2,4
+OUT $cata

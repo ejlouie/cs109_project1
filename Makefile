@@ -5,7 +5,7 @@ OBJ = o
 
 all: MIS clean
 
-MIS: main.$(OBJ)
+MIS: main.$(OBJ) Parser.$(OBJ) Var.$(OBJ) Instructions.$(OBJ) Math.$(OBJ)
 	$(GCC) $^ -o $@
 
 clean:
