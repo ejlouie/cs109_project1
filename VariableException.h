@@ -17,9 +17,9 @@ public:
     }
     virtual void printException() final
     {
-        std::cout << "\n>>>>Parsing Exception:" << std::endl;
-        std::cout << "Problem parsing Variable Declaration:\n" << line << std::endl;
-        std::cout << exception_str << std::endl << std::endl;
+        std::cerr << "\n>>>>Parsing Exception:" << std::endl;
+        std::cerr << "Problem parsing Variable Declaration:\n" << line << std::endl;
+        std::cerr << exception_str << std::endl << std::endl;
     }
     virtual ~VariableException(){}
 };
@@ -39,6 +39,11 @@ class VariableValueException : public VariableException
 public:
     VariableValueException(const std::string & p_line, const std::string & p_value)
         : VariableException(p_line)
+    {
+        exception_str = "Variable value is invalid: " + p_value;
+    }
+    VariableValueException(const std::string & p_value)
+        : VariableException("")
     {
         exception_str = "Variable value is invalid: " + p_value;
     }

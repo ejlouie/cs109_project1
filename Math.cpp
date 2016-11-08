@@ -1,5 +1,6 @@
 #include "Math.h"
 #include "Var.h"
+#include "InstructionException.h"
 
 Math::Math (const int & p_max) : StandardParser(3,p_max) {}
 Math::~Math(){}
@@ -14,20 +15,19 @@ void Math::execute(std::map<std::string, Var*>* vars) {
         if ( var != nullptr )
         {
             std::string val = var->getValue();
-            if( this->valid_numeric(val) || this->valid_real(val) ){
+            if( this->valid_numeric(val) || this->valid_real(val) )
                 number_args.push_back(std::stod(var->getValue()));
-            }
-        } else {
-            number_args.push_back(std::stod(item));
-        }
+            
+        } else number_args.push_back(std::stod(item)); 
+            // data types of args have already been checked in initialize
     });
 
     double solution = Operation(number_args);
+
     Var * var = vars->operator[](args[0]);
-    if ( var != nullptr )
-    {
-        var->setValue(std::to_string(solution));
-    } 
+
+    if ( var != nullptr ) var->setValue(std::to_string(solution));
+    else throw InstructionArgException(args);
 }
 
 void Math::initialize(std::stringstream & ss)
@@ -36,6 +36,7 @@ void Math::initialize(std::stringstream & ss)
     catch ( VariableException ve )
     { throw ve; return; }
 
+    // checking if all arguments are either REAL, NUMERIC, or Variables
     bool parsed = all_of ( args.begin() + 1, args.end(),[this] (auto item) -> bool {
             return (this->valid_real(item) || this->valid_numeric(item) || this->valid_var(item));
         });
@@ -122,3 +123,4 @@ Instructions * Divide::clone (std::stringstream & ss) {
     }
     return divide;
 }
+

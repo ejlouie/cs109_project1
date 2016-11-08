@@ -6,11 +6,15 @@ Var::~Var(){}
 std::string Var::getValue() 
 { return value; }
 
-void Var::setValue(std::string str)
+void Var::setValue(const std::string & str)
 { value = str; }
 
 NumericVar::NumericVar() : StandardParser(3,3) {}
 NumericVar::~NumericVar(){}
+
+std::string NumericVar::getType()
+{ return args[1]; }
+
 void NumericVar::initialize(std::stringstream & ss)
 {
     try { Parse(ss); }
@@ -36,6 +40,10 @@ Var * NumericVar::clone(std::stringstream & ss)
 
 RealVar::RealVar() : StandardParser(3,3) {}
 RealVar::~RealVar(){}
+
+std::string RealVar::getType()
+{ return args[0]; }
+
 void RealVar::initialize(std::stringstream & ss)
 {
     try { Parse(ss); }
@@ -60,6 +68,10 @@ Var * RealVar::clone(std::stringstream & ss)
 
 CharVar::CharVar() : StandardParser(3,3) {}
 CharVar::~CharVar(){}
+
+std::string CharVar::getType()
+{ return args[0]; }
+
 void CharVar::initialize(std::stringstream & ss) 
 { 
     try { Parse(ss); }
@@ -85,6 +97,10 @@ Var * CharVar::clone(std::stringstream & ss)
 
 StringVar::StringVar() : StandardParser(3,4) {}
 StringVar::~StringVar(){}
+
+std::string StringVar::getType()
+{ return args[0]; }
+
 void StringVar::initialize(std::stringstream & ss) 
 {
     try { Parse(ss); }

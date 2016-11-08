@@ -1,51 +1,33 @@
-#ifndef INSTRUCTIONS_H
-#define INSTRUCTIONS_H
+#ifndef __INSTRUCTIONS_H
+#define __INSTRUCTIONS_H
 
-#include "common.h"
 #include "Parser.h"
 
 class Var;
 
 class Instructions 
 {
+protected:
+    virtual double get_numeric(std::string str,std::map<std::string,Var*>*) final;
 public:
     int linenr;
+    bool isjmp;
+    bool islab;
+    bool can_jmp;
+    std::string label;
+
     virtual ~Instructions(){}
     Instructions(){}
-    virtual void execute (std::map<std::string, Var*>*) = 0;
+    virtual void execute (std::map<std::string,Var*>*) = 0;
     virtual void initialize (std::stringstream & ss) = 0;
-    virtual Instructions * clone (std::stringstream & ss)=0;
-};
-
-class SubDiv: public Instructions, StandardParser 
-{
-protected:
-    int specifier;
-public:
-    SubDiv(int specifier);
-    virtual ~SubDiv();
-    void execute(std::map<std::string, Var*>*);
-    void initialize(std::stringstream & ss);
-    Instructions * clone(std::stringstream & ss);
-};
-
-class AddMul : public Instructions, StandardParser 
-{
-protected:
-    int specifier;
-public:
-    AddMul(int specifier);
-    virtual ~AddMul();
-    void execute(std::map<std::string, Var*>*);
-    void initialize(std::stringstream & ss);
-    Instructions * clone(std::stringstream & ss);
+    virtual Instructions * clone (std::stringstream & ss) = 0;
 };
 
 class Out: public Instructions, Parser {
 public:
     Out();
     virtual ~Out();
-    void execute(std::map<std::string, Var*>*);
+    void execute(std::map<std::string,Var*>*);
     void initialize(std::stringstream & ss);
     Instructions * clone(std::stringstream & ss);
 };

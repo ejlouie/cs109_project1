@@ -1,4 +1,4 @@
-#ifndef _INSTRUCTION__EXCEPTION_H
+#ifndef __INSTRUCTION_EXCEPTION_H
 #define __INSTRUCTION_EXCEPTION_H
 
 #include "common.h"
@@ -16,12 +16,12 @@ public:
     }
     virtual void printException() final
     {
-        std::cout << "\n>>>>Parsing Exception:" << std::endl;
-        std::cout << "Problem parsing instruction:\n";
+        std::cerr << "\n>>>>Parsing Exception:" << std::endl;
+        std::cerr << "Problem parsing instruction:\n";
         for_each( line.begin(), line.end(), [](auto item) -> void {
-            std::cout << item << ",";
+            std::cerr << item << ",";
         });
-        std::cout << exception_str << std::endl << std::endl;
+        std::cerr << exception_str << std::endl << std::endl;
     }
     virtual ~InstructionException(){}
 };

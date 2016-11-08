@@ -1,7 +1,6 @@
 #ifndef __PARSER_H
 #define __PARSER_H
 
-#include "common.h"
 #include "VariableException.h"
 
 class Parser
@@ -12,6 +11,7 @@ private:
 
     int max_size;
         // max number of arguments
+        
     int min_size;
         // max number of arguments
 
@@ -38,7 +38,7 @@ protected:
 
     bool valid_string(const std::string & str) const;
         // checks if the input string is a valid STRING
-    
+
     bool valid_var(const std::string & str) const;
         // checks if the input string is a valid variable
 

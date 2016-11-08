@@ -3,9 +3,9 @@
 GCC= g++
 OBJ = o
 
-all: MIS clean
+all: MIS
 
-MIS: main.$(OBJ) Parser.$(OBJ) Var.$(OBJ) Instructions.$(OBJ) Math.$(OBJ)
+MIS: main.$(OBJ) Parser.$(OBJ) Var.$(OBJ) Instructions.$(OBJ) Math.$(OBJ) Label.$(OBJ) Assign.$(OBJ) Jump.$(OBJ) Sleep.$(OBJ)
 	$(GCC) $^ -o $@
 
 clean:

@@ -14,7 +14,8 @@ public:
     Var();
     ~Var();
     virtual std::string getValue() final;
-    virtual void setValue(std::string str) final;
+    virtual std::string getType() = 0;
+    virtual void setValue(const std::string & str) final;
     virtual Var * clone(std::stringstream & ss) = 0;
 
 };
@@ -27,7 +28,8 @@ private:
 public:
     NumericVar();
     virtual ~NumericVar();
-    virtual Var * clone(std::stringstream & ss);
+    std::string getType();
+    Var * clone(std::stringstream & ss);
 
 };
 
@@ -39,7 +41,8 @@ private:
 public:
     RealVar();
     virtual ~RealVar();
-    virtual Var * clone(std::stringstream & ss);
+    std::string getType();
+    Var * clone(std::stringstream & ss);
 
 };
 
@@ -51,7 +54,8 @@ private:
 public:
     CharVar();
     virtual ~CharVar();
-    virtual Var * clone(std::stringstream & ss);
+    std::string getType();
+    Var * clone(std::stringstream & ss);
 
 };
 
@@ -64,10 +68,8 @@ private:
 public:
     StringVar();
     virtual ~StringVar();
-    virtual Var * clone(std::stringstream & ss);
-
-    void dump() const 
-    { std::cout << "Value: " << value << std::endl; }
+    std::string getType();
+    Var * clone(std::stringstream & ss);
 
 };
 

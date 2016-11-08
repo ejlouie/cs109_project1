@@ -1,0 +1,15 @@
+VAR $cata,NUMERIC,8
+VAR $catb,NUMERIC,4
+VAR $dog,REAL,4e9
+VAR $mychar,CHAR,'d'
+VAR $condition,NUMERIC,20
+VAR $counter,NUMERIC,0
+LABEL label1
+ADD $counter,$counter,1
+SUB $condition, $condition,1
+OUT "$condition:",$condition
+OUT "i :",$counter
+JMPNZ label1,$condition
+OUT "$cata:",$cata
+ASSIGN $condition,14
+OUT "$condition:",$condition
